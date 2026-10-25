@@ -23,22 +23,32 @@ if (isset($_GET['action']) && $_GET['action'] == 'duyet' && isset($_GET['id'])) 
         $stmtUpdate = $pdo->prepare("UPDATE BaiViet SET TrangThai = 'DaDang' WHERE MaBV = :mabv");
         $stmtUpdate->execute(['mabv' => $idDuyet]);
     }
-    header("Location: admin_baiviet.php");
+    // Giữ lại từ khóa tìm kiếm nếu đang lọc
+    $redirectUrl = "admin_baiviet.php";
+    if (isset($_GET['tukhoa']) && !empty($_GET['tukhoa'])) {
+        $redirectUrl .= "?tukhoa=" . urlencode($_GET['tukhoa']);
+    }
+    header("Location: " . $redirectUrl);
     exit();
 }
 
-// 3. XỬ LÝ TÌM KIẾM BÀI VIẾT (ƯU TIÊN BÀI CHỜ DUYỆT & BÀI MỚI NHẤT LÊN ĐẦU)
+// 3. XỬ LÝ TÌM KIẾM BÀI VIẾT (ĐÃ SỬA LỖI HY093)
 $tuKhoa = isset($_GET['tukhoa']) ? trim($_GET['tukhoa']) : '';
 
-if (!empty($tuKhoa)) {
+if ($tuKhoa !== '') {
     $sql = "SELECT bv.*, cm.TenCM, nd.HoTen AS TacGia 
             FROM BaiViet bv 
             LEFT JOIN ChuyenMuc cm ON bv.MaCM = cm.MaCM 
             LEFT JOIN NguoiDung nd ON bv.MaND = nd.MaND 
-            WHERE bv.TieuDe LIKE :tukhoa OR nd.HoTen LIKE :tukhoa 
+            WHERE bv.TieuDe LIKE :tukhoa1 OR nd.HoTen LIKE :tukhoa2 
             ORDER BY CASE WHEN bv.TrangThai = 'ChoDuyet' THEN 1 ELSE 2 END, bv.NgayTao DESC, bv.MaBV DESC";
+            
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['tukhoa' => "%$tuKhoa%"]);
+    $paramSearch = "%" . $tuKhoa . "%";
+    $stmt->execute([
+        'tukhoa1' => $paramSearch,
+        'tukhoa2' => $paramSearch
+    ]);
 } else {
     $sql = "SELECT bv.*, cm.TenCM, nd.HoTen AS TacGia 
             FROM BaiViet bv 
@@ -56,10 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['btn_dangbai'])) {
     $tomTat = trim($_POST['tomtat']);
     $noiDung = trim($_POST['noidung']);
     
-    // Quản trị viên đăng thì trực tiếp Đã đăng, Biên tập viên đăng thì Chờ duyệt
     $trangThai = ($vaiTro == 'QuanTriVien') ? 'DaDang' : 'ChoDuyet';
 
-    // Xử lý Upload Ảnh minh họa
+    // Xử lý Upload Ảnh
     $hinhAnh = "";
     if (isset($_FILES['hinhanh']) && $_FILES['hinhanh']['error'] == 0) {
         $targetDir = "upload/";
@@ -191,13 +200,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'xoa' && isset($_GET['id'])) {
             <div class="col-lg-8">
                 <div class="card shadow-sm border-0">
                     <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-2">
-                        <span class="fw-bold">Danh Sách Bài Viết <?= !empty($tuKhoa) ? '(Kết quả lọc)' : '(Tất cả)' ?></span>
+                        <span class="fw-bold">Danh Sách Bài Viết <?= $tuKhoa !== '' ? '(Kết quả tìm kiếm)' : '(Tất cả)' ?></span>
                         
-                        <form action="admin_baiviet.php" method="GET" class="d-flex gap-1" style="max-width: 320px;">
-                            <input type="search" name="tukhoa" class="form-control form-control-sm" placeholder="Tìm tiêu đề, tác giả..." value="<?= htmlspecialchars($tuKhoa) ?>">
-                            <button type="submit" class="btn btn-primary btn-sm text-nowrap">🔍 Tìm</button>
-                            <?php if (!empty($tuKhoa)): ?>
-                                <a href="admin_baiviet.php" class="btn btn-secondary btn-sm text-nowrap" title="Bỏ lọc">✕</a>
+                        <form action="admin_baiviet.php" method="GET" class="d-flex align-items-center gap-1" style="max-width: 320px;">
+                            <input type="text" name="tukhoa" class="form-control form-control-sm" placeholder="Nhập tiêu đề, tác giả..." value="<?= htmlspecialchars($tuKhoa) ?>" required>
+                            <button type="submit" class="btn btn-primary btn-sm text-nowrap px-3">🔍 Tìm</button>
+                            <?php if ($tuKhoa !== ''): ?>
+                                <a href="admin_baiviet.php" class="btn btn-secondary btn-sm text-nowrap" title="Xóa tìm kiếm">✕</a>
                             <?php endif; ?>
                         </form>
                     </div>
@@ -234,9 +243,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'xoa' && isset($_GET['id'])) {
                                                     <?php endif; ?>
                                                 </td>
                                                 <td>
-                                                    <!-- CHỈ CÓ QUẢN TRỊ VIÊN (QuanTriVien) MỚI THẤY NÚT DUYỆT BÀI -->
+                                                    <!-- CHỈ QUẢN TRỊ VIÊN MỚI THẤY NÚT DUYỆT BÀI -->
                                                     <?php if ($vaiTro === 'QuanTriVien' && $bv['TrangThai'] == 'ChoDuyet'): ?>
-                                                        <a href="admin_baiviet.php?action=duyet&id=<?= $bv['MaBV'] ?>" class="btn btn-success btn-sm fw-bold me-1" title="Duyệt bài đăng">✓ Duyệt</a>
+                                                        <a href="admin_baiviet.php?action=duyet&id=<?= $bv['MaBV'] ?><?= $tuKhoa !== '' ? '&tukhoa=' . urlencode($tuKhoa) : '' ?>" class="btn btn-success btn-sm fw-bold me-1" title="Duyệt bài đăng">✓ Duyệt</a>
                                                     <?php endif; ?>
 
                                                     <a href="admin_suabaiviet.php?id=<?= $bv['MaBV'] ?>" class="btn btn-warning btn-sm text-dark fw-bold me-1">Sửa</a>
@@ -246,7 +255,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'xoa' && isset($_GET['id'])) {
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="5" class="py-4 text-muted">Không tìm thấy bài viết nào phù hợp!</td>
+                                            <td colspan="5" class="py-4 text-muted">Không tìm thấy bài viết nào phù hợp với từ khóa "<strong><?= htmlspecialchars($tuKhoa) ?></strong>"!</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
