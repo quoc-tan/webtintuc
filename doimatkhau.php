@@ -121,9 +121,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['btn_doimk'])) {
             margin-top: 3px;
         }
 
-        /* TẦNG 2: MENU CHUYÊN MỤC (NỀN XANH LÁ) */
+        /* TẦNG 2: MENU CHUYÊN MỤC (NỀN TÍM) */
         .header-menu-bar {
-            background-color: #8d259f;
+            background-color: #8e24aa;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .category-nav {
@@ -146,8 +146,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['btn_doimk'])) {
             transition: background 0.2s;
         }
         .category-nav .nav-link:hover, .category-nav .nav-link.active {
-            background-color: #781d82;
+            background-color: #6a1b9a;
             color: #fff !important;
+        }
+
+        /* CUSTOM KHUNG MÀU TÍM CHO TRANG ĐỔI MẬT KHẨU */
+        .bg-purple {
+            background-color: #8e24aa !important;
+        }
+        .btn-purple {
+            background-color: #8e24aa !important;
+            color: #ffffff !important;
+            border: none;
+            transition: background 0.2s;
+        }
+        .btn-purple:hover {
+            background-color: #7b1fa2 !important;
         }
     </style>
 </head>
@@ -228,10 +242,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['btn_doimk'])) {
         </nav>
     </header>
 
-    <!-- FORM ĐỔI MẬT KHẨU -->
+    <!-- FORM ĐỔI MẬT KHẨU (ĐÃ SỬA SANG MÀU TÍM) -->
     <div class="container my-5" style="max-width: 480px;">
         <div class="card shadow-sm border-0">
-            <div class="card-header bg-primary text-white fw-bold text-center py-3">
+            <div class="card-header bg-purple text-white fw-bold text-center py-3">
                 <h5 class="mb-0 fs-5">🔑 ĐỔI MẬT KHẨU TÀI KHOẢN</h5>
             </div>
             <div class="card-body p-4">
@@ -254,7 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['btn_doimk'])) {
                     </div>
 
                     <div class="d-grid gap-2 mt-4">
-                        <button type="submit" name="btn_doimk" class="btn btn-primary fw-bold">Cập Nhật Mật Khẩu</button>
+                        <button type="submit" name="btn_doimk" class="btn btn-purple fw-bold py-2">Cập Nhật Mật Khẩu</button>
                         <a href="index.php" class="btn btn-outline-secondary">Hủy bỏ</a>
                     </div>
                 </form>

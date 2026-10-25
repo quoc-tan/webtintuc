@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-top: 3px;
         }
 
-       
+        /* TẦNG 2: MENU CHUYÊN MỤC (NỀN TÍM) */
         .header-menu-bar {
             background-color: #87259f;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -149,6 +149,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .category-nav .nav-link:hover, .category-nav .nav-link.active {
             background-color: #601d82;
             color: #fff !important;
+        }
+
+        /* CUSTOM KHUNG MÀU TÍM CHO TRANG ĐĂNG NHẬP */
+        .bg-purple {
+            background-color: #87259f !important;
+        }
+        .btn-purple {
+            background-color: #87259f !important;
+            color: #ffffff !important;
+            border: none;
+            transition: background 0.2s;
+        }
+        .btn-purple:hover {
+            background-color: #601d82 !important;
+        }
+        .text-purple {
+            color: #87259f !important;
         }
     </style>
 </head>
@@ -201,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item text-danger" href="logout.php">🚪 Đăng xuất</a></li>
                             <?php else: ?>
-                                <li><a class="dropdown-item fw-bold text-success" href="login.php">👤 Đăng nhập</a></li>
+                                <li><a class="dropdown-item fw-bold text-purple active" href="login.php">👤 Đăng nhập</a></li>
                                 <li><a class="dropdown-item" href="register.php">📝 Đăng ký</a></li>
                             <?php endif; ?>
                         </ul>
@@ -234,7 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="row justify-content-center">
             <div class="col-md-5 col-lg-4">
                 <div class="card shadow-sm border-0 rounded-3">
-                    <div class="card-header bg-success text-white text-center py-3">
+                    <div class="card-header bg-purple text-white text-center py-3">
                         <h4 class="mb-0 fw-bold">ĐĂNG NHẬP</h4>
                     </div>
                     <div class="card-body p-4">
@@ -254,12 +271,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label class="form-label fw-bold">Mật khẩu</label>
                                 <input type="password" name="matkhau" class="form-control" required placeholder="Nhập mật khẩu...">
                             </div>
-                            <button type="submit" class="btn btn-success w-100 fw-bold py-2">Đăng nhập</button>
+                            <button type="submit" class="btn btn-purple w-100 fw-bold py-2">Đăng nhập</button>
                         </form>
                         
                     </div>
                     <div class="card-footer text-center bg-white py-3 border-0">
-                        Chưa có tài khoản? <a href="register.php" class="text-success fw-bold text-decoration-none">Đăng ký ngay</a>
+                        Chưa có tài khoản? <a href="register.php" class="text-purple fw-bold text-decoration-none">Đăng ký ngay</a>
                     </div>
                 </div>
             </div>
