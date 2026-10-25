@@ -64,7 +64,7 @@ $totalPages = ceil($totalRecords / $limit);
         .header-top {
             background-color: #ffffff;
             border-bottom: 1px solid #e5e5e5;
-            padding: 8px 0;
+            padding: 10px 0;
         }
         .search-input-pill {
             border-radius: 20px 0 0 20px;
@@ -77,15 +77,64 @@ $totalPages = ceil($totalRecords / $limit);
             padding-right: 15px;
         }
 
+        /* CSS LOGO STYLING PHONG CÁCH CAFEBIZ */
+        .brand-logo {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-decoration: none !important;
+            line-height: 1;
+        }
+        .brand-main {
+            font-family: 'Arial Black', 'Trebuchet MS', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+        .brand-c {
+            display: inline-block;
+            position: relative;
+            color: #d32f2f;
+            font-size: 2.5rem;
+            margin-right: 2px;
+        }
+        .brand-c::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-52%, -50%) rotate(-15deg);
+            width: 40px;
+            height: 40px;
+            border: 3px solid #d32f2f;
+            border-radius: 50%;
+            border-right-color: transparent;
+            pointer-events: none;
+        }
+        .brand-text-red {
+            color: #d32f2f;
+        }
+        .brand-text-dark {
+            color: #333333;
+        }
+        .brand-sub {
+            font-size: 0.65rem;
+            color: #666666;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 3px;
+        }
+
         /* TẦNG 2: MENU CHUYÊN MỤC (NỀN XANH LÁ) */
         .header-menu-bar {
-            background-color: #589f25;
+            background-color: #9d259f;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .category-nav {
             display: flex;
             flex-direction: row;
-            justify-content: space-between; /* Trải đều từ trái sang phải */
+            justify-content: space-between;
             align-items: center;
             margin: 0;
             padding: 0;
@@ -96,13 +145,13 @@ $totalPages = ceil($totalRecords / $limit);
             color: #ffffff !important;
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.8rem; /* Thu nhỏ cỡ chữ để vừa 100% màn hình */
-            padding: 10px 8px; /* Tối ưu khoảng cách */
+            font-size: 0.8rem;
+            padding: 10px 8px;
             white-space: nowrap;
             transition: background 0.2s;
         }
         .category-nav .nav-link:hover, .category-nav .nav-link.active {
-            background-color: #46821d;
+            background-color: #4e1d82;
             color: #fff !important;
         }
 
@@ -186,12 +235,15 @@ $totalPages = ceil($totalRecords / $limit);
 
     <!-- ==================== HEADER 2 TẦNG ==================== -->
     <header class="sticky-top">
-        <!-- TẦNG 1: LOGO + TÌM KIẾM + NÚT MENU TÀI KHOẢN (3 GẠCH) -->
+        <!-- TẦNG 1: LOGO STYLING CAFEBIZ + TÌM KIẾM + NÚT MENU TÀI KHOẢN -->
         <div class="header-top">
             <div class="container d-flex align-items-center justify-content-between">
-                <!-- Logo bên trái -->
-                <a class="navbar-brand fw-bold text-success fs-3 d-flex align-items-center" href="index.php">
-                    <span class="bg-success text-white px-2 py-1 rounded-3 me-1 fs-4">TanTu</span> TinTức
+                <!-- Logo bên trái phong cách CafeBiz -->
+                <a href="index.php" class="brand-logo">
+                    <div class="brand-main">
+                        <span class="brand-c">T</span><span class="brand-text-red">an</span><span class="brand-text-dark">Tu</span>
+                    </div>
+                    <div class="brand-sub">Tin Tức</div>
                 </a>
                 
                 <!-- Cụm Tìm kiếm & Menu tài khoản bên phải -->
@@ -214,7 +266,7 @@ $totalPages = ceil($totalRecords / $limit);
                             <?php if (isset($_SESSION['MaND'])): ?>
                                 <li class="dropdown-header">Chào, <strong><?= htmlspecialchars($_SESSION['HoTen']) ?></strong></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="baiviet_yeuthich.php">❤️ Tin đã lưu</a></li>
+                                <li><a class="dropdown-item" href="baiviet_yeuthich.php">❤️ Bài viết đã lưu</a></li>
                                 <li><a class="dropdown-item" href="doimatkhau.php">🔑 Đổi mật khẩu</a></li>
                                 
                                 <?php if (isset($_SESSION['VaiTro'])): ?>
