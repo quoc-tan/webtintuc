@@ -249,7 +249,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- FORM ĐĂNG NHẬP -->
     <div class="container my-5">
         <div class="row justify-content-center">
-            <div class="col-md-5 col-lg-4">
+            <div class="col-md-5 col-lg-6">
                 <div class="card shadow-sm border-0 rounded-3">
                     <div class="card-header bg-purple text-white text-center py-3">
                         <h4 class="mb-0 fw-bold">ĐĂNG NHẬP</h4>

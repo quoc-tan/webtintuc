@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]);
 
         if ($ketQua) {
-            $thongBao = "Đăng ký tài khoản thành công! Anh có thể đăng nhập ngay bây giờ.";
+            $thongBao = "Đăng ký tài khoản thành công!";
             $loaiThongBao = 'success';
         } else {
             $thongBao = "Đã xảy ra lỗi trong quá trình tạo tài khoản. Vui lòng thử lại.";
@@ -246,9 +246,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <div class="card shadow-sm border-0 rounded-3">
-                    <div class="card-header bg-primary text-white text-center py-3">
-                        <h4 class="mb-0 fw-bold">ĐĂNG KÝ THÀNH VIÊN</h4>
-                    </div>
+                    <div class="card-header text-white text-center" style="background-color: #9d259f;">
+    <h3>ĐĂNG KÝ THÀNH VIÊN</h3>
+</div>
                     <div class="card-body p-4">
                         
                         <?php if ($thongBao != ''): ?>
@@ -275,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label class="form-label fw-bold">Mật khẩu</label>
                                 <input type="password" name="matkhau" class="form-control" required placeholder="Nhập mật khẩu...">
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 fw-bold py-2">Đăng ký ngay</button>
+                           <button type="submit" class="btn text-white w-100" style="background-color: #98099b; border-color: #9d259f;">Đăng ký ngay</button>
                         </form>
                         
                     </div>
