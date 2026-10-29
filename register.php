@@ -61,15 +61,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng ký - Website Tin Tức</title>
+    <title>Đăng ký thành viên - TanTu Tin Tức</title>
     <!-- Nhúng Bootstrap 5 CSS & JS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         html, body {
             max-width: 100%;
             overflow-x: hidden;
+            background-color: #f8f9fa;
         }
 
         /* TẦNG 1: HEADER TRÊN (NỀN TRẮNG) */
@@ -89,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             padding-right: 15px;
         }
 
-        /* CSS LOGO STYLING PHONG CÁCH CAFEBIZ */
+        /* CSS LOGO STYLING PHONG CÁCH TANTU */
         .brand-logo {
             display: inline-flex;
             flex-direction: column;
@@ -134,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-top: 3px;
         }
 
-        /* TẦNG 2: MENU CHUYÊN MỤC (NỀN XANH LÁ) */
+        /* TẦNG 2: MENU CHUYÊN MỤC */
         .header-menu-bar {
             background-color: #9f2587;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -162,16 +165,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             background-color: #821d6c;
             color: #fff !important;
         }
+
+        /* GIAO DIỆN TRANG ĐĂNG KÝ CHIA ĐÔI */
+        .register-wrapper {
+            min-height: 75vh;
+        }
+        .form-section {
+            padding: 30px 40px;
+            background: #ffffff;
+        }
+        .btn-google {
+            border: 1px solid #ced4da;
+            background: #fff;
+            color: #333;
+            font-weight: 500;
+            border-radius: 8px;
+        }
+        .btn-google:hover {
+            background: #f8f9fa;
+        }
+        
+        /* CỘT PHẢI: HIỂN THỊ ẢNH LOGO1 */
+        .banner-image-section {
+            background-color: #ffffff;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-top-right-radius: 0.75rem;
+            border-bottom-right-radius: 0.75rem;
+        }
+        .banner-image-section img {
+            max-width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+        }
     </style>
 </head>
-<body class="bg-light">
+<body>
 
     <!-- ==================== HEADER 2 TẦNG ĐỒNG BỘ ==================== -->
-    <header class="sticky-top mb-4">
-        <!-- TẦNG 1: LOGO STYLING CAFEBIZ + TÌM KIẾM + MENU TÀI KHOẢN -->
+    <header class="sticky-top mb-3">
+        <!-- TẦNG 1: LOGO STYLING TANTU + TÌM KIẾM + MENU TÀI KHOẢN -->
         <div class="header-top">
             <div class="container d-flex align-items-center justify-content-between">
-                <!-- Logo bên trái phong cách CafeBiz -->
+                <!-- Logo TanTu Tin Tức -->
                 <a href="index.php" class="brand-logo">
                     <div class="brand-main">
                         <span class="brand-c">T</span><span class="brand-text-red">an</span><span class="brand-text-dark">Tu</span>
@@ -241,49 +280,68 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </nav>
     </header>
 
-    <!-- FORM ĐĂNG KÝ -->
-    <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <div class="card shadow-sm border-0 rounded-3">
-                    <div class="card-header text-white text-center" style="background-color: #9d259f;">
-    <h3>ĐĂNG KÝ THÀNH VIÊN</h3>
-</div>
-                    <div class="card-body p-4">
-                        
-                        <?php if ($thongBao != ''): ?>
-                            <div class="alert alert-<?= $loaiThongBao ?>">
-                                <?= $thongBao ?>
-                                <?php if ($loaiThongBao == 'success') echo '<br><a href="login.php" class="btn btn-sm btn-success mt-2 fw-bold">Đến trang Đăng nhập</a>'; ?>
-                            </div>
-                        <?php endif; ?>
+    <!-- ==================== NỘI DUNG FORM ĐĂNG KÝ CHIA ĐÔI ==================== -->
+    <div class="container my-4 register-wrapper">
+        <div class="row align-items-stretch justify-content-center bg-white shadow-sm rounded-4 border overflow-hidden">
+            
+            <!-- CỘT TRÁI: FORM ĐĂNG KÝ -->
+            <div class="col-md-6 form-section d-flex flex-column justify-content-center">
+                <div class="mb-3">
+                    <h3 class="fw-bold text-dark">Đăng ký tài khoản</h3>
+                </div>
 
-                        <form action="register.php" method="POST">
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Họ và tên</label>
-                                <input type="text" name="hoten" class="form-control" required placeholder="Nhập họ và tên...">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Email</label>
-                                <input type="email" name="email" class="form-control" required placeholder="Nhập địa chỉ email...">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Tên đăng nhập</label>
-                                <input type="text" name="tendn" class="form-control" required placeholder="Nhập tên tài khoản...">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Mật khẩu</label>
-                                <input type="password" name="matkhau" class="form-control" required placeholder="Nhập mật khẩu...">
-                            </div>
-                           <button type="submit" class="btn text-white w-100" style="background-color: #98099b; border-color: #9d259f;">Đăng ký ngay</button>
-                        </form>
-                        
+                <!-- Nút đăng ký nhanh bằng Google -->
+                <button type="button" class="btn btn-google w-100 py-2 mb-3 d-flex align-items-center justify-content-center gap-2">
+                    <i class="fa-brands fa-google text-danger"></i> Đăng ký tài khoản bằng Google
+                </button>
+
+                <div class="text-center text-muted my-3 position-relative">
+                    <hr>
+                    <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">Hoặc đăng ký bằng</span>
+                </div>
+
+                <!-- Thông báo trạng thái -->
+                <?php if ($thongBao != ''): ?>
+                    <div class="alert alert-<?= $loaiThongBao ?> py-2 small">
+                        <?= $thongBao ?>
+                        <?php if ($loaiThongBao == 'success') echo '<br><a href="login.php" class="btn btn-sm btn-success mt-2 fw-bold">Đến trang Đăng nhập</a>'; ?>
                     </div>
-                    <div class="card-footer text-center bg-white py-3 border-0">
-                        Đã có tài khoản? <a href="login.php" class="text-primary fw-bold text-decoration-none">Đăng nhập tại đây</a>
+                <?php endif; ?>
+
+                <!-- Form xử lý PHP -->
+                <form action="register.php" method="POST">
+                    <div class="mb-2">
+                        <label class="form-label text-muted small fw-bold">Họ và tên</label>
+                        <input type="text" name="hoten" class="form-control" required placeholder="Nhập họ và tên...">
                     </div>
+                    <div class="mb-2">
+                        <label class="form-label text-muted small fw-bold">Email</label>
+                        <input type="email" name="email" class="form-control" required placeholder="Nhập địa chỉ email...">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label text-muted small fw-bold">Tên đăng nhập</label>
+                        <input type="text" name="tendn" class="form-control" required placeholder="Nhập tên tài khoản...">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">Mật khẩu</label>
+                        <input type="password" name="matkhau" class="form-control" required placeholder="Nhập mật khẩu...">
+                    </div>
+
+                    <button type="submit" class="btn text-white w-100 py-2 fw-bold" style="background-color: #d32f2f;">Đăng ký</button>
+                </form>
+
+                <div class="text-center mt-3 small">
+                    Đã có tài khoản? <a href="login.php" class="text-danger fw-bold text-decoration-none">Đăng nhập tại đây</a>
                 </div>
             </div>
+
+            <!-- CỘT PHẢI: HIỂN THỊ ẢNH LOGO1 TỪ THƯ MỤC UPLOAD -->
+            <div class="col-md-6 d-none d-md-block p-0">
+                <div class="banner-image-section">
+                    <img src="upload/logo1.jpg" alt="Minh họa TanTu Tin Tức" class="img-fluid">
+                </div>
+            </div>
+
         </div>
     </div>
 

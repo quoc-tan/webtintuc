@@ -156,7 +156,7 @@ $danhSachBL = $stmtDSBL->fetchAll();
 
         /* TẦNG 2: MENU CHUYÊN MỤC (NỀN XANH LÁ) */
         .header-menu-bar {
-            background-color: #89259f;
+            background-color: #cb1313;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .category-nav {
@@ -179,7 +179,7 @@ $danhSachBL = $stmtDSBL->fetchAll();
             transition: background 0.2s;
         }
         .category-nav .nav-link:hover, .category-nav .nav-link.active {
-            background-color: #5d1d82;
+            background-color: #d31616;
             color: #fff !important;
         }
     </style>

@@ -128,7 +128,7 @@ $totalPages = ceil($totalRecords / $limit);
 
         /* TẦNG 2: MENU CHUYÊN MỤC (NỀN XANH LÁ) */
         .header-menu-bar {
-            background-color: #9d259f;
+            background-color: #b50a0a;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .category-nav {
@@ -151,7 +151,7 @@ $totalPages = ceil($totalRecords / $limit);
             transition: background 0.2s;
         }
         .category-nav .nav-link:hover, .category-nav .nav-link.active {
-            background-color: #4e1d82;
+            background-color: #bc0e0e;
             color: #fff !important;
         }
 
